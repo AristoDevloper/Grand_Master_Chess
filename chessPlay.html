@@ -1,0 +1,331 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#303030",
+                    "on-tertiary-container": "#eae8e7",
+                    "on-secondary-fixed": "#281801",
+                    "on-error": "#690005",
+                    "tertiary": "#c8c6c6",
+                    "on-surface-variant": "#d5c3b8",
+                    "background": "#131314",
+                    "on-secondary-fixed-variant": "#584324",
+                    "on-secondary": "#402d10",
+                    "on-primary-fixed-variant": "#653d1e",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface": "#131314",
+                    "primary-fixed-dim": "#f4bb92",
+                    "on-primary-container": "#ffe3d1",
+                    "surface-container-lowest": "#0e0e0f",
+                    "tertiary-container": "#686868",
+                    "inverse-primary": "#805533",
+                    "surface-container-high": "#2a2a2b",
+                    "inverse-on-surface": "#303031",
+                    "error-container": "#93000a",
+                    "primary-container": "#8b5e3c",
+                    "secondary-fixed-dim": "#e1c299",
+                    "surface-variant": "#353436",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "surface-container-highest": "#353436",
+                    "surface-container-low": "#1b1b1c",
+                    "surface-bright": "#39393a",
+                    "secondary": "#e1c299",
+                    "primary-fixed": "#ffdcc5",
+                    "on-primary-fixed": "#301400",
+                    "outline-variant": "#51443c",
+                    "error": "#ffb4ab",
+                    "on-error-container": "#ffdad6",
+                    "on-background": "#e5e2e3",
+                    "surface-dim": "#131314",
+                    "on-primary": "#4a280a",
+                    "on-secondary-container": "#d2b48c",
+                    "secondary-fixed": "#feddb3",
+                    "secondary-container": "#5b4526",
+                    "primary": "#f4bb92",
+                    "surface-container": "#1f1f20",
+                    "inverse-surface": "#e5e2e3",
+                    "outline": "#9e8e84",
+                    "surface-tint": "#f4bb92",
+                    "on-surface": "#e5e2e3",
+                    "tertiary-fixed": "#e4e2e2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin": "32px",
+                    "board-padding": "12px",
+                    "card-gap": "16px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Noto Serif"],
+                    "body-lg": ["Manrope"],
+                    "notation": ["Manrope"],
+                    "headline-md": ["Noto Serif"],
+                    "label-caps": ["Manrope"],
+                    "body-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "notation": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .board-recess {
+            box-shadow: inset 0 8px 16px rgba(0,0,0,0.6), inset 0 -4px 8px rgba(255,255,255,0.05);
+        }
+        .wood-grain-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        .piece-shadow {
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5));
+        }
+        .chess-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            aspect-ratio: 1 / 1;
+        }
+        .inlay-pattern {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 94, 60, 0.1) 10px, rgba(139, 94, 60, 0.1) 20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-screen flex flex-col">
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- SideNavBar (Desktop) -->
+        <nav class="hidden lg:flex flex-col h-screen py-margin px-board-padding space-y-card-gap bg-surface-container-low border-r border-outline-variant/20 shadow-md w-64 shrink-0">
+            <div class="px-2 mb-gutter">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary-container font-bold shadow-inner">GM</div>
+                    <div>
+                        <p class="font-headline-md text-headline-md text-primary leading-none">Grandmaster</p>
+                        <p class="font-body-md text-body-md text-on-surface-variant opacity-70">ELO 2450</p>
+                    </div>
+                </div>
+                <button class="w-full py-3 bg-primary-container text-on-primary-container rounded-lg font-bold hover:opacity-90 active:scale-95 transition-all shadow-md">New Game</button>
+            </div>
+
+            <div class="flex flex-col space-y-1">
+                <a class="flex items-center gap-3 px-4 py-3 text-on-primary-container bg-primary-container rounded-lg font-bold transition-all" href="#">
+                    <span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">sports_esports</span>
+                    <span class="font-body-md text-body-md">Play</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-all" href="#">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <span class="font-body-md text-body-md">Analysis</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-all" href="#">
+                    <span class="material-symbols-outlined">extension</span>
+                    <span class="font-body-md text-body-md">Puzzles</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-all" href="#">
+                    <span class="material-symbols-outlined">school</span>
+                    <span class="font-body-md text-body-md">Learn</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-all" href="#">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="font-body-md text-body-md">Community</span>
+                </a>
+            </div>
+            <div class="mt-auto flex flex-col space-y-1">
+            </div>
+        </nav>
+
+
+        <!-- Main Canvas -->
+        <main class="flex-1 relative bg-surface-dim flex items-center justify-center p-8" style="min-height: 100vh;">
+            <!-- 3D Board Container -->
+            <div class="relative w-full max-w-[600px] aspect-square flex flex-col">
+                <!-- Top Player Label -->
+                <div class="flex items-center justify-between mb-4 px-2">
+                    <div class="flex items-center gap-3">
+                        <img class="w-10 h-10 rounded border border-outline-variant" data-alt="Close-up portrait of a competitive chess player with intense focus, set against a dark, minimalist interior with warm ambient lighting. The style is cinematic and high-fidelity, using a palette of deep browns and muted golds to evoke a serious tournament atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArLA-KsdhO6G-bltcvxqPXc_KLwrItF91ox9drPr5dVbURwcZ9mdZ4MIBWqPQbx_BbHydV6uEUm0pyI-vaxOlrRXRdSKa9_iBmKkHGWF92Ovtroe7I0uoqp3hLdOfgDDarl5sOi7TVKEiryewNfwJfHQIIqHlvkqW_4tHwhQsXOOZEgsfnI0Z5jq-03H2RrjbO_oFBdAMCo8TnYARdmE6uXO07VTv3_TTeCvzrVuH264ZapgXwY4LEBxrvgO2JRDq5IIC-bOZ59JZ9">
+                        <div>
+                            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Black</p>
+                            <p class="font-body-md text-body-md font-bold">Magnus C. <span class="text-on-surface-variant opacity-60">(2850)</span></p>
+                        </div>
+                    </div>
+                    <!-- Clock Active State -->
+                    <div class="bg-surface-container-highest px-4 py-1 rounded-xl border border-outline-variant/30 shadow-lg text-headline-md font-mono text-on-surface flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">timer</span>
+                                            08:14
+                    </div>
+                </div>
+
+                <!-- The Board -->
+                <div class="relative flex-1 p-8 bg-secondary-container rounded-lg shadow-2xl border-b-[12px] border-secondary-container/80 board-recess">
+                    <!-- Board Bezel / Decorative Inlays -->
+                    <div class="absolute inset-0 border-[24px] border-primary-container/20 rounded-lg pointer-events-none inlay-pattern opacity-40"></div>
+                    <!-- Chessboard Surface -->
+                    <div class="relative w-full h-full bg-surface-container-lowest chess-grid border-4 border-outline-variant shadow-inner overflow-hidden grid-rows-8"><!-- Row 8 -->
+                    <div class="bg-secondary/10 flex items-center justify-center relative"><span class="absolute top-1 left-1 text-[10px] text-on-surface-variant/50">8</span></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <!-- Row 7 -->
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <!-- Row 6 -->
+                    <div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div>
+                    <!-- Row 5 -->
+                    <div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div>
+                    <!-- Row 4 -->
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <!-- Row 3 -->
+                    <div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div>
+                    <!-- Row 2 -->
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <!-- Row 1 -->
+                    <div class="bg-secondary-container flex items-center justify-center relative"><span class="absolute bottom-1 right-1 text-[10px] text-on-surface-variant/50">a</span></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div>
+                    <div class="bg-secondary-container flex items-center justify-center relative"></div>
+                    <div class="bg-secondary/10 flex items-center justify-center relative"></div></div>
+                </div>
+
+                <!-- Bottom Player Label -->
+                <div class="flex items-center justify-between mt-4 px-2">
+                    <div class="flex items-center gap-3">
+                        <img class="w-10 h-10 rounded border border-outline-variant" data-alt="A portrait of a youthful, expert chess player in a professional setting, with clean studio lighting and a serious, concentrated expression. The background is a soft-focus library of old books, creating a theme of intellectual depth. The aesthetic is high-fidelity and sophisticated, using warm wood tones and professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxvW7KL7krYKl4hDyzitu7ubl-3Jrzw_JARGMEZA2e1CHq1Pk_5YQxwgQLGnlm7zoHlTiZul6AvQvVNFHcwnBTcgFkvKhoTefBA7g58y7Dr02IddDYZLDKljbVO6M0FgOnmW1IIFGaNLWM6A4GJPb1-2tumWhi8PAeIV4L-y0H2-xslrsstDjUpYO6smuHVf8I6TBuAnJuQhGS26Dl75K4jkwPme_cySIGN-E15Dewe0hPSpPBdGC8PUWQuWCdedYFHbAuXKW2FEw6">
+                        <div>
+                            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">White (You)</p>
+                            <p class="font-body-md text-body-md font-bold">Alexander K. <span class="text-on-surface-variant opacity-60">(2450)</span></p>
+                        </div>
+                    </div>
+                    <!-- Clock Inactive State -->
+                    <div class="bg-surface-container-low px-4 py-1 rounded-xl border border-outline-variant/10 opacity-50 text-headline-md font-mono text-on-surface-variant flex items-center gap-3">
+                        <span class="material-symbols-outlined">timer</span>
+                                            05:32
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- Right Side Panel (Analysis & History) -->
+        <aside class="w-[380px] bg-surface-container-low border-l border-outline-variant/30 flex flex-col shrink-0">
+            <!-- Evaluation Bar (Vertical) -->
+            <div class="h-2 w-full bg-surface-variant flex">
+                <div class="h-full bg-white w-1/2 shadow-[0_0_10px_rgba(255,255,255,0.3)]"></div>
+                <div class="h-full bg-black w-1/2"></div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex border-b border-outline-variant/20 px-4">
+                <button class="flex-1 py-4 text-primary font-bold border-b-2 border-primary text-body-md">Moves</button>
+                <!-- <button class="flex-1 py-4 text-on-surface-variant hover:bg-surface-bright/5 transition-all text-body-md">Chat</button> -->
+                <button class="flex-1 py-4 text-on-surface-variant hover:bg-surface-bright/5 transition-all text-body-md">Analysis</button>
+            </div>
+
+            <!-- Move List -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-1">
+                <div class="grid grid-cols-12 gap-2 p-2 rounded hover:bg-surface-bright/5 transition-colors items-center">
+                    <span class="col-span-2 text-on-surface-variant font-notation text-notation opacity-50">1.</span>
+                    <span class="col-span-5 px-3 py-1 bg-surface-container-high rounded text-on-surface font-notation text-notation cursor-pointer">e4</span>
+                    <span class="col-span-5 px-3 py-1 bg-surface-container-high rounded text-on-surface font-notation text-notation cursor-pointer">e5</span>
+                </div>
+                <div class="grid grid-cols-12 gap-2 p-2 rounded hover:bg-surface-bright/5 transition-colors items-center">
+                    <span class="col-span-2 text-on-surface-variant font-notation text-notation opacity-50">2.</span>
+                    <span class="col-span-5 px-3 py-1 bg-surface-container-high rounded text-on-surface font-notation text-notation cursor-pointer">Nf3</span>
+                    <span class="col-span-5 px-3 py-1 bg-surface-container-high rounded text-on-surface font-notation text-notation cursor-pointer">Nc6</span>
+                </div>
+                <div class="grid grid-cols-12 gap-2 p-2 rounded hover:bg-surface-bright/5 transition-colors items-center">
+                    <span class="col-span-2 text-on-surface-variant font-notation text-notation opacity-50">3.</span>
+                    <span class="col-span-5 px-3 py-1 bg-surface-container-high rounded text-on-surface font-notation text-notation cursor-pointer">Bb5</span>
+                    <span class="col-span-5 px-3 py-1 bg-surface-container-high rounded text-on-surface font-notation text-notation cursor-pointer">a6</span>
+                </div>
+                <div class="grid grid-cols-12 gap-2 p-2 rounded bg-primary-container/20 border-l-2 border-primary items-center">
+                    <span class="col-span-2 text-primary font-notation text-notation">4.</span>
+                    <span class="col-span-5 px-3 py-1 bg-primary-container text-on-primary-container rounded font-bold font-notation text-notation cursor-pointer">Ba4</span>
+                    <span class="col-span-5 px-3 py-1 text-on-surface-variant italic font-notation text-notation">Thinking...</span>
+                </div>
+            </div>
+
+            <!-- Interaction Buttons -->
+            <div class="p-6 bg-surface-container border-t border-outline-variant/30 flex gap-4">
+                <button class="flex-1 py-3 px-4 bg-surface-variant rounded-lg border border-outline-variant/50 text-on-surface flex items-center justify-center gap-2 hover:bg-surface-bright/20 transition-all active:scale-95">
+                    <span class="material-symbols-outlined">first_page</span>
+                </button>
+                <button class="flex-1 py-3 px-4 bg-surface-variant rounded-lg border border-outline-variant/50 text-on-surface flex items-center justify-center gap-2 hover:bg-surface-bright/20 transition-all active:scale-95">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button class="flex-1 py-3 px-4 bg-surface-variant rounded-lg border border-outline-variant/50 text-on-surface flex items-center justify-center gap-2 hover:bg-surface-bright/20 transition-all active:scale-95">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+                <button class="flex-1 py-3 px-4 bg-surface-variant rounded-lg border border-outline-variant/50 text-on-surface flex items-center justify-center gap-2 hover:bg-surface-bright/20 transition-all active:scale-95">
+                    <span class="material-symbols-outlined">last_page</span>
+                </button>
+            </div>
+
+
+            <!-- Primary Action Footer -->
+            <div class="p-margin bg-surface-container-highest grid grid-cols-2 gap-card-gap">
+                <button class="py-4 bg-surface-variant text-on-surface rounded-xl font-bold flex flex-col items-center gap-1 border border-outline-variant/30 hover:bg-surface-bright/10">
+                    <span class="material-symbols-outlined">flag</span>
+                    <span class="font-label-caps text-label-caps">Resign</span>
+                </button>
+                <button class="py-4 bg-surface-variant text-on-surface rounded-xl font-bold flex flex-col items-center gap-1 border border-outline-variant/30 hover:bg-surface-bright/10">
+                    <span class="material-symbols-outlined">handshake</span>
+                    <span class="font-label-caps text-label-caps">Offer Draw</span>
+                </button>
+            </div>
+        </aside>
+    </div>
+
+
+</body></html>
