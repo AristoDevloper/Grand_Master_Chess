@@ -185,7 +185,8 @@
                     <!-- Board Bezel / Decorative Inlays -->
                     <div class="absolute inset-0 border-[24px] border-primary-container/20 rounded-lg pointer-events-none inlay-pattern opacity-40"></div>
                     <!-- Chessboard Surface -->
-                    <div class="relative w-full h-full bg-surface-container-lowest chess-grid border-4 border-outline-variant shadow-inner overflow-hidden grid-rows-8"><!-- Row 8 -->
+                    <div class="relative w-full h-full bg-surface-container-lowest chess-grid border-4 border-outline-variant shadow-inner overflow-hidden grid-rows-8">
+                    <!-- Row 8 -->
                     <div class="bg-secondary/10 flex items-center justify-center relative"><span class="absolute top-1 left-1 text-[10px] text-on-surface-variant/50">8</span></div>
                     <div class="bg-secondary-container flex items-center justify-center relative"></div>
                     <div class="bg-secondary/10 flex items-center justify-center relative"></div>
@@ -204,9 +205,23 @@
                     <div class="bg-secondary-container flex items-center justify-center relative"></div>
                     <div class="bg-secondary/10 flex items-center justify-center relative"></div>
                     <!-- Row 6 -->
-                    <div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
                     <!-- Row 5 -->
-                    <div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                     <div class="bg-secondary/10"></div>
+                     <div class="bg-secondary-container"></div>
+                     <div class="bg-secondary/10"></div>
+                     <div class="bg-secondary-container"></div>
+                     <div class="bg-secondary/10"></div>
+                     <div class="bg-secondary-container"></div>
+                     <div class="bg-secondary/10"></div>
                     <!-- Row 4 -->
                     <div class="bg-secondary/10 flex items-center justify-center relative"></div>
                     <div class="bg-secondary-container flex items-center justify-center relative"></div>
@@ -217,7 +232,14 @@
                     <div class="bg-secondary/10 flex items-center justify-center relative"></div>
                     <div class="bg-secondary-container flex items-center justify-center relative"></div>
                     <!-- Row 3 -->
-                    <div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div><div class="bg-secondary-container"></div><div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
+                    <div class="bg-secondary-container"></div>
+                    <div class="bg-secondary/10"></div>
                     <!-- Row 2 -->
                     <div class="bg-secondary/10 flex items-center justify-center relative"></div>
                     <div class="bg-secondary-container flex items-center justify-center relative"></div>
@@ -327,5 +349,46 @@
         </aside>
     </div>
 
+<script>
 
-</body></html>
+    // Utility to iterate over chessboard squares with file/rank info of board coordinates (a1-h8)
+    let chessboard = document.querySelector('.chess-grid');
+    chessboard.forEachSquare = function(callback) {
+        const squares = this.querySelectorAll('div');
+        squares.forEach((square, index) => {
+            const file = String.fromCharCode(97 + (index % 8)); // a-h
+            const rank = 8 - Math.floor(index / 8); // 8-1
+            callback(square, file, rank);
+        });
+    };
+
+    chessboard.forEachSquare((square,file,rank)=>{
+        // Add click listener to each square
+        square.addEventListener('click', ()=>{
+            // For demo, just toggle a highlight on click
+            if(square.classList.contains('bg-primary-container/50')){
+                square.classList.remove('bg-primary-container/50');
+            } else {
+                square.classList.add('bg-primary-container/50');
+            }
+            });
+        })
+
+    chessboard.forEachSquare((square,file,rank)=>{
+        // Adding chess piece images based on initial position for demo purposes
+        let piece = null;
+        if(rank === 2) piece = 'wp'; // white pawn
+        else if(rank === 7) piece = 'bp'; // black pawn
+        else if(rank === 1 || rank === 8) {
+            const color = rank === 1 ? 'w' : 'b';
+            if (file === 'a' || file === 'h') piece = color + 'r'; // rook
+            else if (file === 'b' || file === 'g') piece = color + 'n'; // knight
+            else if (file === 'c' || file === 'f') piece = color + 'b'; // bishop
+            else if (file === 'd') piece = color + 'q'; // queen
+            else if (file === 'e') piece = color + 'k'; // king
+        }
+    })
+    
+</script>
+</body>
+</html>
